@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Docs</title>
+        <style>
+            body {
+                font-family: 'Nunito', sans-serif;
+                font-size: 18px;
+                line-height: 1.6em;
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+            .page {
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .hljs {
+                border-radius:6px;
+                background: #eee;
+                font-size: 14px;
+            }
+            p code {
+                font-size: 14px;
+                color: #388e3c;
+            }
+            h2 {
+                margin-top: 2em;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="page">
+    <h1>Работа с API</h1>
+<p>Для работы с запросами по API понадобится аутентификация через Bearer Token.</p>
+<h2>Аутентификация</h2>
+<p>Для получения токена нужно сделать запрос методом POST с логином и паролем вашего старшего пользователя в роли &quot;брокер&quot; на адрес: <code>https://api.p2p.business/api/auth/login</code> и в параметрах body / form-data передать логин и пароль:</p>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/auth/login' \
+--form 'email=&quot;LOGIN&quot;' \
+--form 'password=&quot;PASSWORD&quot;'
+</code></pre>
+<p>Затем скопировать токен который вы будете подставлять в headers для всех последуюших запросов. Токен бессрочный, по желанию вы можете самостоятельно его сменить вернувшись на шаг назад и заново обратится к <code>https://api.p2p.business/api/auth/login</code></p>
+<h2>Тестовый Запрос</h2>
+<p>Что бы протестировать авторизацию в API отправте запрос с вашим токеном в заголовке по адресу <code>https://api.p2p.business/api</code>, если в ответ прийдёт json со списком роутов, значит вы успешно прошли авторизацию.</p>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>
+<h2>Получение списка типов карт</h2>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/card-types' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>
+<h2>Получение списка доступных стран</h2>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/countries' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>
+<h2>Получение списка банков по стране</h2>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/banks/ru' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>
+<h2>Запрос на подбор карты</h2>
+<p>В этом запросе будет предложена карта по заданым критериям, поля <code>country</code> и <code>amount</code> обязательные, остальные опционально.</p>
+<p>⚠️ Важно! На это этапе идёт только подбор карты, что бы взять эту карту в работу обязательно отправтье запрос, что вы её забираете, в противном случае транзакции будут потеряны.</p>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/get-card' \
+--header 'Authorization: Bearer 1|Tx3dKVLZScFZcjk0WfdjmddDaI7ypNDRAl0HWDQT' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;country&quot;: &quot;ru&quot;,
+    &quot;amount&quot;: &quot;1000&quot;,
+    &quot;bank&quot;: 2,
+    &quot;type&quot;: &quot;visa&quot;,
+    &quot;slavic&quot;: true,
+    &quot;excluded_banks&quot;: 1,
+    &quot;exeption&quot;: 1
+}'
+</code></pre>
+<h2>Забрать карту в работу</h2>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/get-card/ID_КАРТЫ' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>
+<p>в ответ вы получите либо положительный статус:</p>
+<pre><code class="language-json">{
+    &quot;status&quot;: true
+}
+</code></pre>
+<p>либо ошибку с текстом</p>
+<pre><code class="language-json">{
+    &quot;status&quot;: false,
+    &quot;message&quot;: &quot;This card is already in use&quot;
+}
+</code></pre>
+<h2>В работе 🚧</h2>
+<p>¡ запросы не будут отрабатывать !</p>
+<h2>Создание транзакции</h2>
+<p>Создаём транзакцию по карте</p>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/create-transaction/ID_КАРТЫ' \
+--header 'Authorization: Bearer 1|Tx3dKVLZScFZcjk0WfdjmddDaI7ypNDRAl0HWDQT' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;amount&quot;: &quot;1000&quot;,
+    &quot;bill&quot;: &quot;https://yourdomain.com/bill2934849.jpg&quot;,
+}'
+</code></pre>
+<p>в ответ вы получите либо положительный статус:</p>
+<pre><code class="language-json">{
+    &quot;status&quot;: true,
+    &quot;id&quot;: 35890
+}
+</code></pre>
+<p>либо ошибку с текстом</p>
+<pre><code class="language-json">{
+    &quot;status&quot;: false,
+    &quot;message&quot;: &quot;Card limit has exceeded&quot;
+}
+</code></pre>
+<h2>Получение статуса по транзакции</h2>
+<p>Можно получать статус по конкретной транзакции</p>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/transaction/ID_ТРАНЗАКЦИИ' \
+--header 'Authorization: Bearer 1|Tx3dKVLZScFZcjk0WfdjmddDaI7ypNDRAl0HWDQT' \
+--header 'Content-Type: application/json'
+</code></pre>
+<p>ответ:</p>
+<pre><code class="language-json">{
+    &quot;status&quot;: true,
+    &quot;id&quot;: 35890,
+    &quot;transaction_status&quot;: &quot;success&quot;,
+}
+</code></pre>
+<p>Альтернативно: можно обсудить вариант получение списком</p>
+<pre><code class="language-json">[
+    {
+        &quot;id&quot;: 35890,
+        &quot;transaction_status&quot;: &quot;success&quot;,
+    },
+    {
+        &quot;id&quot;: 35891,
+        &quot;transaction_status&quot;: &quot;canceled&quot;,
+    },
+    {
+        &quot;id&quot;: 35892,
+        &quot;transaction_status&quot;: &quot;waiting&quot;,
+    },
+]
+</code></pre>
+    </div>
+
+    <link rel="stylesheet" href="/js/higlightjs/style.css" />
+    <script src="/js/higlightjs/code.js"></script>
+    <script>hljs.highlightAll();</script>
+
+
+
+    </body>
+</html>
