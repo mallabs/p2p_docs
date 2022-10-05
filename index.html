@@ -97,8 +97,7 @@
     &quot;message&quot;: &quot;This card is already in use&quot;
 }
 </code></pre>
-<h2>В работе 🚧</h2>
-<p>¡ запросы не будут отрабатывать !</p>
+
 <h2>Создание транзакции</h2>
 <p>Создаём транзакцию по карте</p>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/create-transaction/ID_КАРТЫ' \
@@ -107,6 +106,8 @@
 --data-raw '{
     &quot;amount&quot;: &quot;1000&quot;,
     &quot;bill&quot;: &quot;https://yourdomain.com/bill2934849.jpg&quot;,
+    &quot;comment&quot;: &quot;optional comment&quot;,
+    &quot;sender_name&quot;: &quot;optional sender name&quot;
 }'
 </code></pre>
 <p>в ответ вы получите либо положительный статус:</p>
