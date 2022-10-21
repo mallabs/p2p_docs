@@ -151,6 +151,16 @@
     },
 ]
 </code></pre>
+        
+<h2>Список взятых вами карт</h2>
+<p>Запрос на адрес <code>https://api.p2p.business/api/my-cards</code> Обратите внимание, что мы автоматически возвращаем в общий пулл карты, которые вы не используете в течении продолжительного времени.</p>
+<pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/my-cards' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>     
+        
+        
+        
     </div>
 
     <link rel="stylesheet" href="js/higlightjs/style.css" />
