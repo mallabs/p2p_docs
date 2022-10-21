@@ -69,7 +69,7 @@
 <p>В этом запросе будет предложена карта по заданым критериям, поля <code>country</code> и <code>amount</code> обязательные, остальные опционально.</p>
 <p>⚠️ Важно! На это этапе идёт только подбор карты, что бы взять эту карту в работу обязательно отправтье запрос, что вы её забираете, в противном случае транзакции будут потеряны.</p>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/get-card' \
---header 'Authorization: Bearer 1|Tx3dKVLZScFZcjk0WfdjmddDaI7ypNDRAl0HWDQT' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     &quot;country&quot;: &quot;ru&quot;,
@@ -101,7 +101,7 @@
 <h2>Создание транзакции</h2>
 <p>Создаём транзакцию по карте</p>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/create-transaction/ID_КАРТЫ' \
---header 'Authorization: Bearer 1|Tx3dKVLZScFZcjk0WfdjmddDaI7ypNDRAl0HWDQT' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     &quot;amount&quot;: &quot;1000&quot;,
@@ -125,7 +125,7 @@
 <h2>Получение статуса по транзакции</h2>
 <p>Можно получать статус по конкретной транзакции</p>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/transaction/ID_ТРАНЗАКЦИИ' \
---header 'Authorization: Bearer 1|Tx3dKVLZScFZcjk0WfdjmddDaI7ypNDRAl0HWDQT' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
 </code></pre>
 <p>ответ:</p>
