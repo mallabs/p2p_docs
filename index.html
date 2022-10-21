@@ -27,6 +27,11 @@
             p code {
                 font-size: 14px;
                 color: #388e3c;
+                background-color: #ecf4ed;
+                display: inline-block;
+                font-size: 14px;
+                padding: 0px 6px;
+                border-radius: 4px;
             }
             h2 {
                 margin-top: 2em;
@@ -47,6 +52,24 @@
                 color: #999;
                 padding-right: 10px;
                 padding-left: 5px;
+            }
+            blockquote {
+                background-color: #fef3c7;
+                margin-left: 0;
+                margin-right: 0;
+                padding: 10px 20px;
+                border-radius: 6px;
+                color: #B45309;
+                font-size: 14px;
+                line-height: 1.4em;
+            }
+            blockquote code {
+                background-color: rgb(231, 242, 248);
+                color: rgb(62, 123, 192);
+                font-size: 13px;
+                font-size: 14px;
+                padding: 2px 5px;
+                border-radius: 4px;
             }
         </style>
     </head>
@@ -85,7 +108,7 @@
 
 <h2>Запрос на подбор карты</h2>
 <p>В этом запросе будет предложена карта по заданым критериям, поля <code>country</code> и <code>amount</code> обязательные, остальные опционально.</p>
-<p>⚠️ Важно! На это этапе идёт только подбор карты, что бы взять эту карту в работу обязательно отправтье запрос, что вы её забираете, в противном случае транзакции будут потеряны.</p>
+<blockquote>⚠️ Важно! На этом этапе идёт только подбор карты, что бы взять эту карту в работу обязательно отправтье запрос, что вы её забираете, в противном случае транзакции будут потеряны.</blockquote>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/get-card' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json' \
@@ -134,6 +157,26 @@
     
 </table>
 
+<h3>Пример ответа:</h3>
+
+<pre>
+    <code class="language-json">
+{
+    "id": 381,
+    "number": 5210 **** **** 1234,
+    "iban": "",
+    "phone": 791600000000,
+    "bank_id": 66,
+    "holder": "Ivan Ivanov",
+    "today_limit": 30198,
+    "this_month_limit": 107213,
+    "type": "phone",
+    "details": null,
+    "transcountry": false,
+    "comment": null
+}
+    </code>
+</pre>
 
 
 <h2>Забрать карту в работу</h2>
@@ -177,6 +220,8 @@
     &quot;message&quot;: &quot;Card limit has exceeded&quot;
 }
 </code></pre>
+<blockquote>Обратите внимание, если при запросе карты вы получили ответ true в поле transcountry <code> "transcountry": true,</code> вам необходимо передавать amount в валюте отправителя, в то время как при зачислении вы увидите сумму в фактической валюте получения</blockquote>
+
 <h2>Получение статуса по транзакции</h2>
 <p>Можно получать статус по конкретной транзакции</p>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/transaction/ID_ТРАНЗАКЦИИ' \
@@ -219,14 +264,14 @@
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/return-card/666' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
-</code></pre>     
+</code></pre>   
+
         
 <h2>Уведомление о блокировке</h2>
 <p>От вас необходимо предоставить адресс на который будет отправлено уведомление о немедленной блокировке карты.</p>        
 <p>Пример ожидаемой ссылки: <code>http://81.8.8.11/callbacks/block-card?id=666</code></p>
 <p>Так же вам будет предоставлен наш ip адрес для добавления в whitelist</p>
-        
-    </div>
+</div>
 
     <link rel="stylesheet" href="js/higlightjs/style.css" />
     <script src="js/higlightjs/code.js"></script>
