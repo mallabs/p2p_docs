@@ -31,6 +31,23 @@
             h2 {
                 margin-top: 2em;
             }
+            table td {
+                border-bottom: 1px solid #eee;
+                padding: 10px 0;
+            }
+            table td code {
+                background-color: rgb(231, 242, 248);
+                color: rgb(62, 123, 192);
+                font-size: 14px;
+                padding: 2px 5px;
+                border-radius: 4px;
+            }
+            table td small {
+                display: inline-block;
+                color: #999;
+                padding-right: 10px;
+                padding-left: 5px;
+            }
         </style>
     </head>
     <body>
@@ -65,6 +82,7 @@
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
 </code></pre>
+
 <h2>Запрос на подбор карты</h2>
 <p>В этом запросе будет предложена карта по заданым критериям, поля <code>country</code> и <code>amount</code> обязательные, остальные опционально.</p>
 <p>⚠️ Важно! На это этапе идёт только подбор карты, что бы взять эту карту в работу обязательно отправтье запрос, что вы её забираете, в противном случае транзакции будут потеряны.</p>
@@ -81,6 +99,43 @@
     &quot;exeption&quot;: 1
 }'
 </code></pre>
+
+<h3>Доступные параметры</h3>
+
+<table>
+    <tr>
+        <td><code>country</code></td>
+        <td>2х буквенное ISO в нижнем регистре</td>
+    </tr>
+    <tr>
+        <td><code>amount</code></td>
+        <td>сумма предполагаемой транзакции</td>
+    </tr>
+    <tr>
+        <td><code>bank</code></td>
+        <td><small>опционально</small> id банка выдаваемой карты</td>
+    </tr>
+    <tr>
+        <td><code>type</code></td>
+        <td><small>опционально</small> тип карты visa, mastercard, mir...</td>
+    </tr>
+    <tr>
+        <td><code>slavic</code></td>
+        <td><small>опционально</small> <code>true</code>, <code>false</code> славянское имя держателя карты</td>
+    </tr>
+    <tr>
+        <td><code>excluded_banks</code></td>
+        <td><small>опционально</small> массив, исключить карты перечисленных банков</td>
+    </tr>
+    <tr>
+        <td><code>exeption</code></td>
+        <td><small>опционально</small> массив, исключить карты по их id</td>
+    </tr>
+    
+</table>
+
+
+
 <h2>Забрать карту в работу</h2>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/get-card/ID_КАРТЫ' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
