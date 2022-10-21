@@ -219,7 +219,12 @@
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/return-card/666' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
-</code></pre>       
+</code></pre>     
+        
+<h2>Уведомление о блокировке</h2>
+<p>От вас необходимо предоставить адресс на который будет отправлено уведомление о немедленной блокировке карты.</p>        
+<p>Пример ожидаемой ссылки: <code>http://81.8.8.11/callbacks/block-card?id=666</code></p>
+<p>Так же вам будет предоставлен наш ip адрес для добавления в whitelist</p>
         
     </div>
 
