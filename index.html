@@ -236,6 +236,14 @@
 }
 </code></pre>
 <p>Альтернативно: можно получить списком</p>
+      
+ <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/transactions' \
+--header 'Authorization: Bearer ВАШ_ТОКЕН' \
+--header 'Content-Type: application/json'
+</code></pre>
+        
+<p>ответ:</p>
+        
 <pre><code class="language-json">{
     "current_page": 1,
     "data": [
