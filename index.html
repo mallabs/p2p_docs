@@ -91,16 +91,19 @@
 --header 'Content-Type: application/json'
 </code></pre>
 <h2>Получение списка типов карт</h2>
+<blockquote>⚠️ Список может менятся, рекомендуем обновлять раз в сутки</blockquote>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/card-types' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
 </code></pre>
 <h2>Получение списка доступных стран</h2>
+<blockquote>⚠️ Список может менятся, рекомендуем обновлять минимум раз в час</blockquote>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/countries' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
 </code></pre>
 <h2>Получение списка банков по стране</h2>
+<blockquote>⚠️ Список может менятся, рекомендуем обновлять минимум раз в час</blockquote>
 <pre><code class="language-bash">curl --location --request POST 'https://api.p2p.business/api/banks/ru' \
 --header 'Authorization: Bearer ВАШ_ТОКЕН' \
 --header 'Content-Type: application/json'
