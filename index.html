@@ -264,11 +264,19 @@
 --header 'Content-Type: application/json' \
 --data-raw '{
     &quot;amount&quot;: &quot;1000&quot;,
-    &quot;bill&quot;: &quot;https://yourdomain.com/bill2934849.jpg&quot;,
     &quot;comment&quot;: &quot;optional comment&quot;,
     &quot;sender_name&quot;: &quot;optional sender name&quot;
 }'
 </code></pre>
+        
+<h3>Прикрепление чека</h3>
+<p>⚠️ Обратите внимание, хотя поле с чеком не является обязательным, оно являтся важным фактором для зачисления ваших стредств, по этому чек всегда должен прилагатся к транзакции.</p>
+<p>У нас есть несколько способов отправки чека в API</p>
+<p>1. Отправка файла в запросе form data в поле `bill`</p>        
+<p>2. Отправка ссылки на файл в поле `bill_link`</p>     
+<p>3. Отправка файла закодированного в Base_64 в поле `bill_encoded`</p>        
+        
+        
 <p>в ответ вы получите либо положительный статус:</p>
 <pre><code class="language-json">{
     &quot;status&quot;: true,
