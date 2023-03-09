@@ -247,7 +247,21 @@
 </code></pre>
 <p>в ответ вы получите либо положительный статус:</p>
 <pre><code class="language-json">{
-    &quot;status&quot;: true
+    "status": true,
+    "card": {
+        "id": 381,
+        "number": "5210290572091234",
+        "iban": null,
+        "phone": 79610000111,
+        "bank_id": 12,
+        "holder": "Ivan Ivanov",
+        "today_limit": 12150,
+        "this_month_limit": 1049065,
+        "type": "mir",
+        "details": "инн 000000000б бик 0000001",
+        "transcountry": false,
+        "comment": null
+    }
 }
 </code></pre>
 <p>либо ошибку с текстом</p>
